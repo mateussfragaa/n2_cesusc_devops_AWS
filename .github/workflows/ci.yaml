@@ -36,7 +36,7 @@ jobs:
       - name: Configurar Chrome
         uses: browser-actions/setup-chrome@v2
         with:
-          chrome-version: stable
+          chrome-version: 156
           install-chromedriver: true
 
       # 5. Análise estática
