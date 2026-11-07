@@ -1,3 +1,4 @@
+
 name: CI
 
 on:
@@ -34,33 +35,32 @@ jobs:
 
       # 4. Instalar Chrome e ChromeDriver compatíveis
       - name: Configurar Chrome
-        uses: browser-actions/setup-chrome@v2
         id: setup-chrome
+        uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: stable
           install-chromedriver: true
 
-      # 4.1. Definir o caminho correto do Chrome
-      - name: Configurar caminho do Chrome
+      # 5. Configurar caminhos corretos
+      - name: Configurar executáveis
         run: |
           echo "CHROME_BIN=${{ steps.setup-chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+          echo "CHROMEDRIVER_PATH=${{ steps.setup-chrome.outputs.chromedriver-path }}" >> $GITHUB_ENV
 
-      # 4.2. Conferir versões instaladas
+      # 6. Conferir versões
       - name: Verificar Chrome e ChromeDriver
         run: |
-          echo "Chrome:"
           ${{ steps.setup-chrome.outputs.chrome-path }} --version
-          echo "ChromeDriver:"
           ${{ steps.setup-chrome.outputs.chromedriver-path }} --version
 
-      # 5. Análise estática
+      # 7. Análise estática
       - name: ESLint
         run: npm run lint
 
-      # 6. Testes unitários e cobertura
+      # 8. Testes unitários e cobertura
       - name: Testes unitários e cobertura
         run: npm run test:unit
 
-      # 7. Teste de interface com Selenium
+      # 9. Teste de interface com Selenium
       - name: Teste Selenium - Google
         run: npm run test:e2e
