@@ -32,12 +32,26 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      # 4. Instalar Chrome e ChromeDriver
+      # 4. Instalar Chrome e ChromeDriver compatíveis
       - name: Configurar Chrome
         uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
         with:
-          chrome-version: 157
+          chrome-version: stable
           install-chromedriver: true
+
+      # 4.1. Definir o caminho correto do Chrome
+      - name: Configurar caminho do Chrome
+        run: |
+          echo "CHROME_BIN=${{ steps.setup-chrome.outputs.chrome-path }}" >> $GITHUB_ENV
+
+      # 4.2. Conferir versões instaladas
+      - name: Verificar Chrome e ChromeDriver
+        run: |
+          echo "Chrome:"
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+          echo "ChromeDriver:"
+          ${{ steps.setup-chrome.outputs.chromedriver-path }} --version
 
       # 5. Análise estática
       - name: ESLint
