@@ -14,10 +14,25 @@ describe('Teste de interface - Google', () => {
         options.addArguments('--no-sandbox');
         options.addArguments('--disable-dev-shm-usage');
 
-        const driver = await new Builder()
+        // Utiliza o Chrome instalado pelo GitHub Actions
+        if (process.env.CHROME_BIN) {
+            options.setChromeBinaryPath(process.env.CHROME_BIN);
+        }
+
+        const builder = new Builder()
             .forBrowser('chrome')
-            .setChromeOptions(options)
-            .build();
+            .setChromeOptions(options);
+
+        // Utiliza o ChromeDriver instalado pelo GitHub Actions
+        if (process.env.CHROMEDRIVER_PATH) {
+            const service = new chrome.ServiceBuilder(
+                process.env.CHROMEDRIVER_PATH
+            );
+
+            builder.setChromeService(service);
+        }
+
+        const driver = await builder.build();
 
         try {
             await driver.get('https://www.google.com');
