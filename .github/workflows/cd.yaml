@@ -30,6 +30,6 @@ jobs:
           switches: -avzr --delete
           path: ./*
           remote_path: /opt/n2_cesusc_devops_AWS/ # Pasta onde está o nosso projeto
-          remote_host: http://54.94.100.224/ # Aqui vai o IP da instância EC2
+          remote_host: 54.94.100.224 # Aqui vai o IP da instância EC2
           remote_user: ubuntu
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
