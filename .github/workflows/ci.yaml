@@ -33,7 +33,7 @@ jobs:
       - name: Instalar dependências
         run: npm ci
 
-      # 4. Instalar Chrome e ChromeDriver compatíveis
+      # 4. Configurar Chrome e ChromeDriver
       - name: Configurar Chrome
         id: setup-chrome
         uses: browser-actions/setup-chrome@v2
@@ -41,26 +41,62 @@ jobs:
           chrome-version: stable
           install-chromedriver: true
 
-      # 5. Configurar caminhos corretos
+      # 5. Configurar caminhos
       - name: Configurar executáveis
         run: |
           echo "CHROME_BIN=${{ steps.setup-chrome.outputs.chrome-path }}" >> $GITHUB_ENV
           echo "CHROMEDRIVER_PATH=${{ steps.setup-chrome.outputs.chromedriver-path }}" >> $GITHUB_ENV
 
-      # 6. Conferir versões
+      # 6. Verificar versões
       - name: Verificar Chrome e ChromeDriver
         run: |
           ${{ steps.setup-chrome.outputs.chrome-path }} --version
           ${{ steps.setup-chrome.outputs.chromedriver-path }} --version
 
-      # 7. Análise estática
+      # 7. ESLint
       - name: ESLint
         run: npm run lint
 
-      # 8. Testes unitários e cobertura
+      # 8. Testes unitários
       - name: Testes unitários e cobertura
         run: npm run test:unit
 
-      # 9. Teste de interface com Selenium
+      # 9. Teste Selenium
       - name: Teste Selenium - Google
         run: npm run test:e2e
+
+  # CONTINUOUS DELIVERY
+  delivery:
+    name: Continuous Delivery
+    runs-on: ubuntu-latest
+
+    needs: test
+
+    # Não fazer merge quando for apenas um Pull Request
+    if: github.event_name != 'pull_request'
+
+    steps:
+      # 1. Baixar o repositório
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          fetch-depth: 0
+          ref: develop
+
+      # 2. Configurar Git
+      - name: Configurar Git
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      # 3. Buscar todas as branches
+      - name: Buscar branches
+        run: git fetch --all
+
+      # 4. Fazer merge de develop para main
+      - name: Merge develop para main
+        run: |
+          git checkout main
+          git merge origin/develop --no-edit
+          git push origin main
