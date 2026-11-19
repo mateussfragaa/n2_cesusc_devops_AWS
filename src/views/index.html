@@ -1,11 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow | Gerenciador de Tarefas</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello, World! Testando EC2 com CI e CD</h1>
+
+<main class="container">
+
+    <header class="header">
+        <div>
+            <span class="logo">TASKFLOW</span>
+            <h1>Minhas tarefas</h1>
+            <p>Organize suas atividades e acompanhe seu progresso.</p>
+        </div>
+    </header>
+
+    <section class="resumo">
+        <div class="resumo-item">
+            <span>Total de tarefas</span>
+            <strong id="totalTarefas">0</strong>
+        </div>
+
+        <div class="resumo-item">
+            <span>Pendentes</span>
+            <strong id="tarefasPendentes">0</strong>
+        </div>
+
+        <div class="resumo-item">
+            <span>Concluídas</span>
+            <strong id="tarefasConcluidas">0</strong>
+        </div>
+    </section>
+
+    <section class="painel">
+        <div class="painel-header">
+            <div>
+                <h2>Lista de atividades</h2>
+                <p>Adicione e acompanhe suas tarefas.</p>
+            </div>
+        </div>
+
+        <form id="formTarefa" class="form-tarefa">
+            <input
+                    type="text"
+                    id="tituloTarefa"
+                    placeholder="Digite uma nova tarefa..."
+                    autocomplete="off"
+                    required
+            >
+            <button type="submit">Adicionar tarefa</button>
+        </form>
+
+        <div class="filtros">
+            <button type="button" class="filtro ativo" data-filtro="todas">Todas</button>
+            <button type="button" class="filtro" data-filtro="pendentes">Pendentes</button>
+            <button type="button" class="filtro" data-filtro="concluidas">Concluídas</button>
+        </div>
+
+        <ul id="listaTarefas" class="lista-tarefas">
+            <li class="mensagem-vazia">Carregando tarefas...</li>
+        </ul>
+    </section>
+
+    <footer>
+        TaskFlow — Gerenciamento simples de tarefas.
+    </footer>
+
+</main>
+
+<script src="script.js"></script>
 </body>
 </html>
