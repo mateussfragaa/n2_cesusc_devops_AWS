@@ -1,0 +1,277 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3f5f9;
+    color: #252b36;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 50px 25px;
+}
+
+/* Cabeçalho */
+
+.header {
+    margin-bottom: 30px;
+}
+
+.logo {
+    display: inline-block;
+    color: #3155a6;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.header h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+    color: #202938;
+}
+
+.header p {
+    color: #7b8494;
+    font-size: 15px;
+}
+
+/* Resumo */
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.resumo-item {
+    background-color: #ffffff;
+    padding: 22px;
+    border: 1px solid #e7eaf0;
+    border-radius: 10px;
+}
+
+.resumo-item span {
+    display: block;
+    color: #7b8494;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.resumo-item strong {
+    font-size: 27px;
+    color: #263653;
+}
+
+/* Painel principal */
+
+.painel {
+    background-color: #ffffff;
+    border: 1px solid #e7eaf0;
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.painel-header {
+    margin-bottom: 23px;
+}
+
+.painel-header h2 {
+    font-size: 19px;
+    margin-bottom: 6px;
+    color: #263044;
+}
+
+.painel-header p {
+    color: #8992a1;
+    font-size: 13px;
+}
+
+/* Formulário */
+
+.form-tarefa {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.form-tarefa input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid #dfe4ec;
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-tarefa input:focus {
+    border-color: #4266b2;
+}
+
+.form-tarefa button {
+    padding: 13px 18px;
+    background-color: #3155a6;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.form-tarefa button:hover {
+    background-color: #244589;
+    transform: translateY(-1px);
+}
+
+/* Filtros */
+
+.filtros {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #edf0f4;
+    margin-bottom: 10px;
+}
+
+.filtro {
+    background: none;
+    border: none;
+    padding: 10px 2px;
+    color: #8992a1;
+    font-size: 13px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+
+.filtro:hover {
+    color: #3155a6;
+}
+
+.filtro.ativo {
+    color: #3155a6;
+    border-bottom-color: #3155a6;
+    font-weight: bold;
+}
+
+/* Lista de tarefas */
+
+.lista-tarefas {
+    list-style: none;
+}
+
+.tarefa {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 17px 5px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.tarefa:last-child {
+    border-bottom: none;
+}
+
+.tarefa input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    accent-color: #3155a6;
+    cursor: pointer;
+}
+
+.tarefa-titulo {
+    flex: 1;
+    font-size: 14px;
+    color: #394253;
+    overflow-wrap: anywhere;
+}
+
+.tarefa.concluida .tarefa-titulo {
+    color: #a0a7b2;
+    text-decoration: line-through;
+}
+
+.btn-excluir {
+    background: none;
+    border: none;
+    color: #a0a7b2;
+    font-size: 13px;
+    cursor: pointer;
+    padding: 6px;
+    transition: color 0.2s;
+}
+
+.btn-excluir:hover {
+    color: #d34b4b;
+}
+
+.mensagem-vazia {
+    text-align: center;
+    padding: 35px 10px;
+    color: #a0a7b2;
+    font-size: 14px;
+}
+
+/* Rodapé */
+
+footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #a0a7b2;
+    font-size: 12px;
+}
+
+/* Responsividade */
+
+@media (max-width: 600px) {
+    .container {
+        padding: 30px 15px;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .resumo {
+        gap: 8px;
+    }
+
+    .resumo-item {
+        padding: 15px 10px;
+    }
+
+    .resumo-item span {
+        font-size: 11px;
+    }
+
+    .resumo-item strong {
+        font-size: 23px;
+    }
+
+    .painel {
+        padding: 18px;
+    }
+
+    .form-tarefa {
+        flex-direction: column;
+    }
+
+    .form-tarefa button {
+        padding: 13px;
+    }
+
+    .filtros {
+        gap: 15px;
+    }
+}
